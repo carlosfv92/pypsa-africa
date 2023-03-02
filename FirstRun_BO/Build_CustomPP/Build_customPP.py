@@ -13,23 +13,31 @@ import numpy as np
 #%% load file
 
 #format to use
-df = pd.read_csv(r'C:/Users/Lenovo/Desktop/pypsa-earth/FirstRun_BO/Build_CustomPP/custom_powerplants.csv', sep=',')
+df = pd.read_csv(r'C:/Users/Lenovo/Desktop/pypsa-earth/FirstRun_BO/Build_CustomPP/Format_custom_powerplants.csv', sep=',')
 #Name,Fueltype,Technology,Set,Country,Capacity,Efficiency,Duration,Volume_Mm3,DamHeight_m,
 #StorageCapacity_MWh,DateIn,DateRetrofit,DateMothball,DateOut,lat,lon,EIC,projectID,bus
 
 #data base to transform
-db = pd.read_csv(r'C:/Users/Lenovo/Desktop/pypsa-earth/FirstRun_BO/Build_CustomPP/PowerPlantData_for_custompowerplants_2020.csv', sep=';')
+db = pd.read_csv(r'C:/Users/Lenovo/Desktop/pypsa-earth/FirstRun_BO/Build_CustomPP/New_custompowerplants_2020.csv', sep=';')
 
 print(df)
 print(db)
 
 
-#%% reshape database
+#%% save as new csv file
 
-db = db[db.columns[0]].str.split(';', expand=True)
+db.to_csv('custom_powerplants.csv',index=False)
 
-#%% reindexing database
 
-db = db.rename(columns={'Name':'Central','Unit':'Name','Fuel':'Fueltype','Technology':'Technology',
-                        'PowerCapacity':'Capacity','STOCapacity':'StorageCapacity_MWh'})
+#%% Check infor on created powerplants file
+
+df_pp = pd.read_csv(r'C:/Users/Lenovo/Desktop/pypsa-earth/resources/powerplants.csv')
+
+
+#%% check base network data on buses
+import pypsa
+
+base_network = "C:/Users/Lenovo/Desktop/pypsa-earth/networks/base.nc"
+
+bn = pypsa.Network(base_network)
 
