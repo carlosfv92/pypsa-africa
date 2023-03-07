@@ -347,13 +347,13 @@ def attach_conventional_generators(
     conventional_config,
     conventional_inputs,
 ):
-    carriers = set(conventional_carriers) | set(extendable_carriers["Generator"])
+    carriers = set(conventional_carriers) | set(extendable_carriers["Generator"])   ####### initially it was including solar as a conventional generator so it was removed in the extendable_carriers (generators) from the config.yaml file
     _add_missing_carriers_from_costs(n, costs, carriers)
 
     ppl = (
         ppl.query("carrier in @carriers")
         .join(costs, on="carrier", rsuffix="_r")
-        .rename(index=lambda s: "C" + str(s))
+        .rename(index=lambda s: "C" + str(s))               ######### For some reason gas turbines are not being considered in the model
     )
     ppl["efficiency"] = ppl.efficiency.fillna(ppl.efficiency)
 
