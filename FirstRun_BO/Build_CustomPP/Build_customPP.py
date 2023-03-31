@@ -12,13 +12,13 @@ import numpy as np
 
 #%% load file
 
-#format to use
+#format to use when using commas "," as separators
 df = pd.read_csv(r'C:/Users/Lenovo/Desktop/pypsa-earth/FirstRun_BO/Build_CustomPP/Format_custom_powerplants.csv', sep=',')
 #Name,Fueltype,Technology,Set,Country,Capacity,Efficiency,Duration,Volume_Mm3,DamHeight_m,
 #StorageCapacity_MWh,DateIn,DateRetrofit,DateMothball,DateOut,lat,lon,EIC,projectID,bus
 
-#data base to transform
-db = pd.read_csv(r'C:/Users/Lenovo/Desktop/pypsa-earth/FirstRun_BO/Build_CustomPP/New_custompowerplants_2020.csv', sep=';')
+#data base to transform and loading file that uses ";" as separators
+db = pd.read_csv(r'C:/Users/Lenovo/Desktop/pypsa-earth/FirstRun_BO/Build_CustomPP/New_custompowerplants_2020_2.csv', sep=';')
 
 print(df)
 print(db)
@@ -33,6 +33,8 @@ db.to_csv('custom_powerplants.csv',index=False)
 
 df_pp = pd.read_csv(r'C:/Users/Lenovo/Desktop/pypsa-earth/resources/powerplants.csv')
 
+print(df_pp.iloc[:,[6]].sum(axis=0))
+#print(df_pp['Capacity'])
 
 #%% check base network data on buses
 import pypsa

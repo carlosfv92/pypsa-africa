@@ -353,7 +353,7 @@ def attach_conventional_generators(
     ppl = (
         ppl.query("carrier in @carriers")
         .join(costs, on="carrier", rsuffix="_r")
-        .rename(index=lambda s: "C" + str(s))               ######### For some reason gas turbines are not being considered in the model
+        .rename(index=lambda s: "C" + str(s))               ######### For some reason hydro pp are not being considered in the model - 
     )
     ppl["efficiency"] = ppl.efficiency.fillna(ppl.efficiency)
 
@@ -418,7 +418,7 @@ def attach_hydro(n, costs, ppl):
 
     ror = ppl.query('technology == "Run-Of-River"')
     phs = ppl.query('technology == "Pumped Storage"')
-    hydro = ppl.query('technology == "Reservoir"')
+    hydro = ppl.query('technology == "Reservoir"')             #### This naming configuration has to used in the custom_powerplants.csv
     if snakemake.config["cluster_options"]["alternative_clustering"]:
         bus_id = ppl["region_id"]
     else:

@@ -12,7 +12,7 @@
 *.zip
 
 # Untracked files
-config.yaml
+#config.yaml
 dag.svg
 
 # Untracked folders (and files within)
