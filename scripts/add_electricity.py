@@ -347,7 +347,7 @@ def attach_conventional_generators(
     conventional_config,
     conventional_inputs,
 ):
-    carriers = set(conventional_carriers) | set(extendable_carriers["Generator"])   ####### initially it was including solar as a conventional generator so it was removed in the extendable_carriers (generators) from the config.yaml file
+    carriers = set(conventional_carriers) ###### | set(extendable_carriers["Generator"])   ####### initially it was including solar so this section was commented
     _add_missing_carriers_from_costs(n, costs, carriers)
 
     ppl = (
@@ -510,7 +510,7 @@ def attach_hydro(n, costs, ppl):
         ).fillna(6)
 
         n.madd(
-            "StorageUnit",
+            "Generator",              ######## 'StorageUnit' is changed so it can add their capacities into the generation side not as storage capacities
             hydro.index,
             carrier="hydro",
             bus=hydro["bus"],

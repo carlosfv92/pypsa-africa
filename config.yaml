@@ -121,7 +121,7 @@ electricity:
     H2: 168
 
   extendable_carriers:
-    Generator: [CCGT, OCGT]               ##  offwind-ac, offwind-dc, are removed    ###### additionally: solar & onwind are removed because they are producing problems and contradicting documentation and line 601 in add_electricity.py script
+    Generator: [CCGT, OCGT, solar, onwind]               ##  offwind-ac, offwind-dc, are removed    ###### additionally: solar & onwind are removed because they are producing problems and contradicting documentation and line 601 in add_electricity.py script
     StorageUnit: []  # battery, H2
     Store: [battery, H2]
     Link: []  # H2 pipeline
@@ -277,7 +277,7 @@ renewable:
       normalization: hydro_capacities # 'hydro_capacities' to normalize country production by using hydro_capacities, 'eia' to normalize by eia data, false for no normalization
     carriers: [ror, PHS, hydro]
     PHS_max_hours: 6
-    hydro_max_hours: "energy_capacity_totals_by_country"  # not active
+    hydro_max_hours: "estimate_by_large_installations" ####"energy_capacity_totals_by_country"  # not active #### this was changed due to not having values for Bolivia (or southamerica)
     clip_min_inflow: 1.0
     extendable: true
     normalization_multiplier: 1.1  # multiplier applied after the normalization of the hydro production
