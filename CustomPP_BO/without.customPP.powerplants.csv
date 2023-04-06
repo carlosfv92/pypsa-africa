@@ -1,0 +1,23 @@
+,Name,Fueltype,Technology,Set,Country,Capacity,Efficiency,Duration,Volume_Mm3,DamHeight_m,StorageCapacity_MWh,DateIn,DateRetrofit,DateOut,lat,lon,EIC,projectID,bus
+0,Aranjuez Bolivia,Oil,CCGT,PP,BO,33.996512682804884,,,0.0,0.0,0.0,1993.0,1993.0,2033.0,-19.0394,-65.2697,"{nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan}",{'GEO': {'GEO-44762'}},21
+1,Botijlaca Bolivia,Hydro,,PP,BO,9.441912362255028,,,0.0,0.0,0.0,1938.0,1938.0,2038.0,-16.1925,-68.1405,"{nan, nan, nan}",{'GEO': {'GEO-44740'}},32
+2,Bulo Ocgt Bolivia,OCGT,OCGT,PP,BO,80.85539954559952,,,0.0,0.0,0.0,2000.0,2000.0,2040.0,-17.24237,-64.54088,"{nan, nan}",{'GEO': {'GEO-41946'}},41
+3,Cahua Bolivia,Hydro,,PP,BO,26.722393478080267,,,0.0,0.0,0.0,1974.0,1974.0,2074.0,-16.04561,-67.9939,"{nan, nan}",{'GEO': {'GEO-44748'}},1
+4,Carrasco Ocgt Bolivia,OCGT,OCGT,PP,BO,137.09482189620542,,,0.0,0.0,0.0,1996.0,1996.0,2036.0,-17.2125,-64.5275,"{nan, nan, nan}",{'GEO': {'GEO-44736'}},28
+5,Chojlla Bolivia,Hydro,,PP,BO,34.20466365194274,,,0.0,0.0,0.0,2002.0,2002.0,2102.0,-16.4124,-67.7725,{nan},{'GEO': {'GEO-44750'}},112
+6,Chururaqui Bolivia,Hydro,,PP,BO,30.285379275157634,,,0.0,0.0,0.0,1966.0,1966.0,2066.0,-16.105,-68.067,"{nan, nan}",{'GEO': {'GEO-44746'}},2
+7,Corani Bolivia,Hydro,Reservoir,PP,BO,53.31210191082803,,,0.0,0.0,0.0,1992.0,1992.0,2092.0,-17.2122,-65.8758,"{nan, nan, nan, nan}",{'GEO': {'GEO-44721'}},16
+8,Cutichucho Bolivia,Hydro,,PP,BO,23.159407681002897,,,0.0,0.0,0.0,1942.0,1942.0,2042.0,-16.1425,-68.1158,"{nan, nan, nan, nan, nan}",{'GEO': {'GEO-44741'}},2
+9,El Alto El Kenko Bolivia,OCGT,OCGT,PP,BO,72.2487914606346,,,0.0,0.0,0.0,2012.0,2012.0,2052.0,-16.5653,-68.1811,"{nan, nan}",{'GEO': {'GEO-44735'}},6
+10,Entre Rios Bolivia,OCGT,OCGT,PP,BO,107.80719939413271,,,0.0,0.0,0.0,2010.0,2010.0,2050.0,-21.52,-64.1714,"{nan, nan, nan, nan}",{'GEO': {'GEO-44720'}},120
+11,Guaracachi Ccgt Bolivia,OCGT,OCGT,PP,BO,315.56172775777736,,,0.0,0.0,0.0,1999.0,1999.0,2039.0,-17.7875,-63.1521,"{nan, nan, nan, nan, nan, nan, nan, nan}",{'GEO': {'GEO-42663'}},104
+12,Harca Bolivia,Hydro,,PP,BO,26.722393478080267,,,0.0,0.0,0.0,1969.0,1969.0,2069.0,-16.07836,-68.03361,"{nan, nan}",{'GEO': {'GEO-44747'}},1
+13,Huaji Bolivia,Hydro,,PP,BO,30.285379275157634,,,0.0,0.0,0.0,1999.0,1999.0,2099.0,-16.0416,-67.9566,"{nan, nan}",{'GEO': {'GEO-44749'}},1
+14,Karachipampa Bolivia,OCGT,OCGT,PP,BO,12.936863927295924,,,0.0,0.0,0.0,1982.0,1982.0,2022.0,-19.551,-65.72205,{nan},{'GEO': {'GEO-44756'}},66
+15,Santa Cruz Bolivia,OCGT,OCGT,PP,BO,38.00203778643177,,,0.0,0.0,0.0,2009.0,2009.0,2049.0,-17.7549,-63.1398,"{nan, nan}",{'GEO': {'GEO-44755'}},37
+16,Santa Isabel Bolivia,Hydro,,PP,BO,83.28479300668349,,,0.0,0.0,0.0,1992.0,1992.0,2092.0,-17.1916,-65.8232,"{nan, nan, nan, nan, nan}",{'GEO': {'GEO-44722'}},14
+17,Santa Rosa Bolivia,Hydro,,PP,BO,25.831647028810924,,,0.0,0.0,0.0,1952.0,2003.0,2103.0,-16.129199999999997,-68.103,"{nan, nan, nan}","{'GEO': {'GEO-44742', 'GEO-44743'}}",2
+18,Tiquimani Bolivia,Hydro,,PP,BO,8.551165912985685,,,0.0,0.0,0.0,1997.0,1997.0,2097.0,-16.2072,-68.1235,{nan},{'GEO': {'GEO-44739'}},32
+19,Valle Hermoso Bolivia,OCGT,OCGT,PP,BO,149.83403929127877,,,0.0,0.0,0.0,1991.0,1991.0,2031.0,-17.4302,-66.1169,"{nan, nan, nan, nan, nan, nan, nan, nan}",{'GEO': {'GEO-44734'}},11
+20,Yanacachi Norte Bolivia,Hydro,,PP,BO,45.51714355766339,,,0.0,0.0,0.0,2002.0,2002.0,2102.0,-16.3887,-67.7373,{nan},{'GEO': {'GEO-44752'}},35
+21,Zongo Bolivia,Hydro,Reservoir,PP,BO,0.0,,,0.0,0.0,0.0,1929.0,1929.0,2029.0,-16.2719,-68.1227,"{nan, nan, nan}",{'GEO': {'GEO-44738'}},32

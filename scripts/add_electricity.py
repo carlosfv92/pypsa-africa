@@ -347,13 +347,13 @@ def attach_conventional_generators(
     conventional_config,
     conventional_inputs,
 ):
-    carriers = set(conventional_carriers) | set(extendable_carriers["Generator"])
+    carriers = set(conventional_carriers) ###### | set(extendable_carriers["Generator"])   ####### initially it was including solar so this section was commented
     _add_missing_carriers_from_costs(n, costs, carriers)
 
     ppl = (
         ppl.query("carrier in @carriers")
         .join(costs, on="carrier", rsuffix="_r")
-        .rename(index=lambda s: "C" + str(s))
+        .rename(index=lambda s: "C" + str(s))               ######### For some reason hydro pp are not being considered in the model - 
     )
     ppl["efficiency"] = ppl.efficiency.fillna(ppl.efficiency)
 
@@ -418,7 +418,7 @@ def attach_hydro(n, costs, ppl):
 
     ror = ppl.query('technology == "Run-Of-River"')
     phs = ppl.query('technology == "Pumped Storage"')
-    hydro = ppl.query('technology == "Reservoir"')
+    hydro = ppl.query('technology == "Reservoir"')             #### This naming configuration has to used in the custom_powerplants.csv
     if snakemake.config["cluster_options"]["alternative_clustering"]:
         bus_id = ppl["region_id"]
     else:
@@ -510,7 +510,7 @@ def attach_hydro(n, costs, ppl):
         ).fillna(6)
 
         n.madd(
-            "StorageUnit",
+            "Generator",              ######## 'StorageUnit' is changed so it can add their capacities into the generation side not as storage capacities
             hydro.index,
             carrier="hydro",
             bus=hydro["bus"],

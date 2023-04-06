@@ -52,7 +52,7 @@ def normalize_node_size(values, max_node_size=max_node_size):
 
 #os.getcwd()  gets the path to where the library is selected and the rest is link to the simulation's result
 
-solved_network = os.getcwd() + "/results/networks/elec_s_10_ec_lcopt_Co2L-6H.nc"
+solved_network = "C:/Users/Lenovo/Desktop/pypsa-earth/results/networks/elec_s_10_ec_lcopt_Co2L-6H.nc"
 
 n_solve = pypsa.Network(solved_network)
 
@@ -97,7 +97,7 @@ gen_cap = n.generators.groupby(["carrier"]).sum()
 #check installed capacity by bus and carrier
 n.generators.iloc[:, :].groupby(["bus", "carrier"]).p_nom.sum()
 
-
+print(gen_cap)
 
 #%%
 
