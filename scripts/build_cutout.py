@@ -108,7 +108,7 @@ if __name__ == "__main__":
         from _helpers import mock_snakemake
 
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
-        snakemake = mock_snakemake("build_cutout", cutout="africa-2013-era5")
+        snakemake = mock_snakemake("build_cutout", cutout="southamerica-2013-era5")   ### changed from africa to southamerica
     configure_logging(snakemake)
 
     cutout_params = snakemake.config["atlite"]["cutouts"][snakemake.wildcards.cutout]
