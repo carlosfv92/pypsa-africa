@@ -511,7 +511,7 @@ def attach_hydro(n, costs, ppl):
         ).fillna(6)
 
         n.madd(
-            "Generator",          ##### 'StorageUnit' is changed to 'Generator' so they can be recognized as powerplants
+            "StorageUnit",          ##### 'StorageUnit' can be changed to 'Generator' so they can be recognized as powerplants
             hydro.index,
             carrier="hydro",
             bus=hydro["bus"],
