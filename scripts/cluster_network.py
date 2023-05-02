@@ -534,16 +534,28 @@ def busmap_for_n_clusters(
                 f"`algorithm` must be one of 'kmeans' or 'hac'. Is {algorithm}."
             )
 
-    return (
-        n.buses.groupby(
-            # ["country"],
-            ["country", "sub_network"],  # TODO: 2. Add sub_networks (see previous TODO)
-            group_keys=False,
+    busmap_subnetwork = config["cluster_options"]["busmap_subnetwork"] ##### section added to use new (true) or old (false) version of the code in the cluster_network.py script
+    if busmap_subnetwork is False:          #### old version
+        return (
+            n.buses.groupby(
+                ["country"], 
+                group_keys=False,
+            )
+            .apply(busmap_for_country)
+            .squeeze(axis=0)
+            .rename("busmap")
         )
-        .apply(busmap_for_country)
-        .squeeze(axis=0)
-        .rename("busmap")
-    )
+    else:                                   #### new version
+        return (
+            n.buses.groupby(
+                # ["country"],
+                ["country", "sub_network"],  # TODO: 2. Add sub_networks (see previous TODO)
+                group_keys=False,
+            )
+            .apply(busmap_for_country)
+            .squeeze(axis=0)
+            .rename("busmap")
+        )
 
 
 def clustering_for_n_clusters(

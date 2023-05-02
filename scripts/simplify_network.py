@@ -433,11 +433,19 @@ def aggregate_to_substations(n, aggregation_strategies=dict(), buses_i=None):
             & (n.buses.carrier == "AC")
         ].index
 
-        buses_i = list(
-            set(n.buses.index)
-            - set(i_islands)
-            - set(n.generators.bus)
-            - set(n.loads.bus)
+        isolated_exclusion = snakemake.config["cluster_options"]["simplify_network"]["isolated_exclusion"] ####        cluster_config.get("isolated_exclusion")        ##### section added to use new (true) or old (false) version of the code in the simplify_network.py script
+        if isolated_exclusion is False:     #### old version
+            buses_i = list(
+                set(n.buses.index)
+                - set(n.generators.bus)
+                - set(n.loads.bus)
+        )
+        else:                               #### new version
+            buses_i = list(
+                set(n.buses.index)
+                - set(i_islands)
+                - set(n.generators.bus)
+                - set(n.loads.bus)
         )
 
     weight = pd.concat(
