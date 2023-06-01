@@ -61,7 +61,7 @@ lignite,2030,VOM,7,EUR/MWhel,DIW DataDoc http://hdl.handle.net/10419/80348
 CCGT,2030,VOM,4,EUR/MWhel,DIW DataDoc http://hdl.handle.net/10419/80348
 OCGT,2030,VOM,3,EUR/MWhel,DIW DataDoc http://hdl.handle.net/10419/80348
 nuclear,2030,VOM,8,EUR/MWhel,DIW DataDoc http://hdl.handle.net/10419/80348
-gas,2030,fuel,21.6,EUR/MWhth,IEA2011b
+gas,2030,fuel,4.44,EUR/MWhth,IEA2011b
 uranium,2030,fuel,3,EUR/MWhth,DIW DataDoc http://hdl.handle.net/10419/80348
 oil,2030,VOM,3,EUR/MWhel,DIW DataDoc http://hdl.handle.net/10419/80348
 nuclear,2030,fuel,3,EUR/MWhth,IEA2011b
