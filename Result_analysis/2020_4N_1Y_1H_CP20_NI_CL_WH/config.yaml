@@ -117,7 +117,7 @@ load_options:
   ssp: "ssp2-2.6" # shared socio-economic pathway (GDP and population growth) scenario to consider
   weather_year: 2013  # Load scenarios available with different weather year (different renewable potentials)
   prediction_year: 2020  # Load scenarios available with different prediction year (GDP, population)          ######### a folder is created with the same information of 2030 (this change is donde to allow the prediction year to be 2020)
-  scale: 0.9  # scales all load time-series, i.e. 2 = doubles load         ######## value changed to adapt the total energy demand to the Bolivian demand in 2020
+  scale: 0.813  # scales all load time-series, i.e. 2 = doubles load         ######## value changed to adapt the total energy demand to the Bolivian demand in 2020
 
 electricity:
   voltages: [220., 300., 380.]
@@ -137,7 +137,7 @@ electricity:
     H2: 168
 
   extendable_carriers:
-    Generator: [CCGT, OCGT, solar, onwind, hydro]               ##  offwind-ac & offwind-dc are removed 
+    Generator: [solar, biomass, geothermal, onwind, hydro]               ##  offwind-ac & offwind-dc are removed  ## CCGT, OCGT are removed for scenario analysis
     StorageUnit: []  # battery, H2
     Store: [battery, H2]
     Link: []  # H2 pipeline

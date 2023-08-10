@@ -523,7 +523,7 @@ def attach_hydro(n, costs, ppl, inflows_sddp):        ##### section added to mod
 
             sddp_datas = snakemake.config["renewable"]["hydro"]["sddp_datas"]
             if (sddp_datas==True):
-                inflow_t = modify_inflows(inflows_sddp,ppl,normalisation_factor = 0.9)           ####### 0.6 will make hydro match the output from 2020, and 1 provides an overstimation (need to explain why***)
+                inflow_t = modify_inflows(inflows_sddp,ppl,normalisation_factor = 0.9*(1-0.0748))           ####### 0.6 will make hydro match the output from 2020, and 1 provides an overstimation (need to explain why***)
             else:
                 inflow_t = (
                     inflow.sel(plant=inflow_stations)
