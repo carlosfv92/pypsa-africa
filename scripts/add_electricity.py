@@ -230,6 +230,52 @@ def load_powerplants(ppl_fn):
     )
 
 
+
+
+
+##### section added to modify and attach inflow information to data sources (begin)
+
+def modifiy_hydro_powerplants(ppl):
+    hydro_plants=ppl
+    hydro_plants.loc[hydro_plants['name'].str.startswith('SRO02'), 'name'] = 'SRO02' # function in order to supress the *
+    hydro_plants.loc[hydro_plants['name'].str.startswith('CHU'), 'name'] = 'CHU'
+    hydro_plants.loc[hydro_plants['name'].str.startswith('PUH'), 'name'] = 'PUH'
+    return hydro_plants
+
+
+def load_inflows(inflows_sddp):
+    return pd.read_csv(inflows_sddp,sep=';', index_col=0)
+
+        
+def modify_inflows(inflows,ppl,normalisation_factor):   
+    hydro_inflows_dict = {}
+    
+    hydro_plants = ppl
+    
+    for name in hydro_plants.index:
+        capacity = hydro_plants.loc[name, 'p_nom']
+        inflows_series = inflows[hydro_plants.loc[name, 'name']] * capacity
+        hydro_inflows_dict[name] = inflows_series.values
+
+    inflow_t = pd.DataFrame.from_dict(hydro_inflows_dict, orient='columns', dtype='float')*normalisation_factor
+    inflow_t.columns.name = 'name' 
+
+    time_range = pd.date_range(start='2013-01-01 00:00:00', end='2013-12-31 23:00:00', freq='H')
+
+    # reindex dataframe with time-based indices and integer-based columns
+    inflow_t = inflow_t.set_index(time_range)#.reset_index(drop=True)
+    inflow_t.index.name = 'date'
+
+    return inflow_t
+
+
+
+##### section added to modify and attach inflow information to data sources (end)
+
+
+
+
+
 def attach_load(n, demand_profiles):
     """
     Add load profiles to network buses
@@ -306,7 +352,8 @@ def attach_wind_and_solar(
         if tech == "hydro":
             continue
 
-        #recentrly added lines to allow inclusion of renewable PP in 2020
+        ##### recentrly added lines to allow inclusion of renewable PP in 2020
+
         if tech == "offwind-ac":
             # add all offwind wind power plants by default as offwind-ac
             df.carrier.mask(df.technology == "Offshore", "offwind-ac", inplace=True)
@@ -340,7 +387,8 @@ def attach_wind_and_solar(
             else:
                 capital_cost = costs.at[tech, "capital_cost"]
 
-            #recently added lines to allow inclusion of renewable PP in 2020 
+            ##### recently added lines to allow inclusion of renewable PP in 2020 
+
             if not df.query("carrier == @tech").empty:
                 buses = n.buses.loc[ds.indexes["bus"]]
                 caps = map_country_bus(df.query("carrier == @tech"), buses)
@@ -427,7 +475,7 @@ def attach_conventional_generators(
                 n.generators.loc[idx, attr] = values
 
 
-def attach_hydro(n, costs, ppl):
+def attach_hydro(n, costs, ppl, inflows_sddp):        ##### section added to modify and attach inflow information to data sources
     if "hydro" not in snakemake.config["renewable"]:
         return
     c = snakemake.config["renewable"]["hydro"]
@@ -440,6 +488,13 @@ def attach_hydro(n, costs, ppl):
         .reset_index(drop=True)
         .rename(index=lambda s: str(s) + " hydro")
     )
+
+    ##### section added to modify and attach inflow information to data sources (begin)
+
+    ppl = modifiy_hydro_powerplants(ppl)
+    
+    ##### section added to modify and attach inflow information to data sources (end)
+
 
     # TODO: remove this line to address nan when powerplantmatching is stable
     # Current fix, NaN technologies set to ROR
@@ -463,13 +518,23 @@ def attach_hydro(n, costs, ppl):
                 f"inflow time-series for at least one bus: {', '.join(missing_c)}"
             )
 
-            inflow_t = (
-                inflow.sel(plant=inflow_stations)
-                .rename({"plant": "name"})
-                .assign_coords(name=inflow_idx)
-                .transpose("time", "name")
-                .to_pandas()
-            )
+            
+            ##### section added to modify and attach inflow information to data sources (begin)
+
+            sddp_datas = snakemake.config["renewable"]["hydro"]["sddp_datas"]
+            if (sddp_datas==True):
+                inflow_t = modify_inflows(inflows_sddp,ppl,normalisation_factor = 0.9*(1-0.0748))           ####### 0.6 will make hydro match the output from 2020, and 1 provides an overstimation (need to explain why***)
+            else:
+                inflow_t = (
+                    inflow.sel(plant=inflow_stations)
+                    .rename({"plant": "name"})
+                    .assign_coords(name=inflow_idx)
+                    .transpose("time", "name")
+                    .to_pandas()
+                )
+            
+            ##### section added to modify and attach inflow information to data sources (end)
+
 
     if "ror" in carriers and not ror.empty:
         n.madd(
@@ -536,7 +601,7 @@ def attach_hydro(n, costs, ppl):
             )
         hydro_max_hours = hydro.max_hours.where(
             hydro.max_hours > 0, hydro.country.map(max_hours_country)
-        ).fillna(6)
+        ).fillna(1300)
 
         n.madd(
             "StorageUnit",          ##### 'StorageUnit' can be changed to 'Generator' so they can be recognized as powerplants
@@ -759,6 +824,21 @@ if __name__ == "__main__":
         Nyears,
     )
     ppl = load_powerplants(snakemake.input.powerplants)
+
+
+    ##### section added to modify and attach inflow information to data sources (begin)
+
+
+    sddp_datas = snakemake.config["renewable"]["hydro"]["sddp_datas"]
+    if (sddp_datas==True):
+        inflows_sddp = load_inflows(snakemake.input.inflows_sddp)
+    else :
+        inflows_sddp = 0
+    
+
+    ##### section added to modify and attach inflow information to data sources (end)
+
+
     if "renewable_carriers" in snakemake.config["electricity"]:
         renewable_carriers = set(snakemake.config["electricity"]["renewable_carriers"])
     else:
@@ -801,7 +881,7 @@ if __name__ == "__main__":
         extendable_carriers,
         snakemake.config["lines"]["length_factor"],
     )
-    attach_hydro(n, costs, ppl)
+    attach_hydro(n, costs, ppl, inflows_sddp)    ##### section added to modify and attach inflow information to data sources
 
     estimate_renewable_capacities_irena(n, snakemake.config)
 
