@@ -810,7 +810,17 @@ def clean_data(
 ):
     logger.info("Process OSM lines")
     # Load raw data lines
-    df_lines = gpd.read_file(input_files["lines"])
+
+    ######## this conditional has been added to allow the use of custom information for lines by marking a flag in the config file
+
+    if snakemake.config["clean_osm_data_options"]["use_custom_lines"] == False :
+        df_lines = gpd.read_file(input_files["lines"])
+    
+    elif snakemake.config["clean_osm_data_options"]["use_custom_lines"] == True :
+        df_lines = gpd.read_file(input_files["custom_lines"])
+
+    ######## this conditional has been added to allow the use of custom information for lines by marking a flag in the config file
+
 
     # prepare lines dataframe and data types
     df_lines = prepare_lines_df(df_lines)
