@@ -192,7 +192,7 @@ if __name__ == "__main__":
 
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
         snakemake = mock_snakemake(
-            "build_natura_raster", cutouts=["cutouts/africa-2013-era5.nc"]
+            "build_natura_raster", cutouts=["cutouts/southamerica-2013-era5.nc"]
         )
     configure_logging(snakemake)
 
