@@ -795,6 +795,46 @@ def set_name_by_closestcity(df_all_generators, colname="name"):
     return df_all_generators
 
 
+ ######## this funtion has been added to allow the use of custom information for lines, substations or cables by marking flags in the config file
+def use_custom_data_files (custom_component_type):       #### custom_data_type should be a string named lines, cables or substations
+    
+    #checks the type of data/components to be reviewed
+    if custom_component_type == 'lines' :
+        custom_conditional = snakemake.config["clean_osm_data_options"]["use_custom_lines"]
+        custom_path = snakemake.config["clean_osm_data_options"].get("custom_path_lines",False)
+        
+    elif custom_component_type == 'substations' :
+        custom_conditional = snakemake.config["clean_osm_data_options"]["use_custom_substations"]
+        custom_path = snakemake.config["clean_osm_data_options"].get("custom_path_substations",False)
+        
+    elif custom_component_type == 'cables' :
+        custom_conditional = snakemake.config["clean_osm_data_options"]["use_custom_cables"]
+        custom_path = snakemake.config["clean_osm_data_options"].get("custom_path_cables",False)
+
+    else:
+        raise ValueError("Invalid custom_component_type. Expected 'lines', 'substations', or 'cables'.")
+
+
+    #creates a dataframe based on the component type presented
+    if custom_conditional == 'OSM_only' :
+        loaded_df = gpd.read_file(input_files[custom_component_type])
+        
+    elif custom_conditional == 'Custom_only' :
+        loaded_df = gpd.read_file(custom_path)
+
+    elif custom_conditional == 'Add_custom' :
+        loaded_df1 = gpd.read_file(input_files[custom_component_type])
+        loaded_df2 = gpd.read_file(custom_path)
+        
+        loaded_df = pd.concat([loaded_df1, loaded_df2], ignore_index=True)
+
+    else:
+        raise ValueError("Invalid custom_conditional value.")
+
+    #returns dataframe to be read in each section of the code depending on the component type (lines, substations or cables)
+
+    return loaded_df
+
 def clean_data(
     input_files,
     output_files,
@@ -810,17 +850,7 @@ def clean_data(
 ):
     logger.info("Process OSM lines")
     # Load raw data lines
-
-    ######## this conditional has been added to allow the use of custom information for lines by marking a flag in the config file
-
-    if snakemake.config["clean_osm_data_options"]["use_custom_lines"] == False :
-        df_lines = gpd.read_file(input_files["lines"])
-    
-    elif snakemake.config["clean_osm_data_options"]["use_custom_lines"] == True :
-        df_lines = gpd.read_file(input_files["custom_lines"])
-
-    ######## this conditional has been added to allow the use of custom information for lines by marking a flag in the config file
-
+    df_lines = use_custom_data_files ('lines')
 
     # prepare lines dataframe and data types
     df_lines = prepare_lines_df(df_lines)
