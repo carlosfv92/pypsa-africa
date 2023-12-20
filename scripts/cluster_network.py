@@ -653,7 +653,7 @@ if __name__ == "__main__":
 
         os.chdir(os.path.dirname(os.path.abspath(__file__)))
         snakemake = mock_snakemake(
-            "cluster_network", network="elec", simpl="", clusters="10"
+            "cluster_network", network="elec", simpl="", clusters="10m"
         )
         sets_path_to_root("pypsa-earth")
     configure_logging(snakemake)

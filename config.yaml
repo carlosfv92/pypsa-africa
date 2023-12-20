@@ -17,7 +17,7 @@ run:
 scenario:
   simpl: ['']
   ll: ['copt']
-  clusters: [20]
+  clusters: [4m]
   opts: [Co2L-1H]
 
 countries: ["BO"]
@@ -74,15 +74,15 @@ cluster_options:
   out_logging: true  # When "True", logging is printed to console
   aggregation_strategies:
     generators:  # use "min" for more conservative assumptions
-      p_nom: sum
-      p_nom_max: sum
-      p_nom_min: sum
-      p_min_pu: mean
-      marginal_cost: mean
+      p_nom: sum   ####can be commented out to match pypsa-eur
+      p_nom_max: sum   ####can be commented out to match pypsa-eur
+      p_nom_min: sum   ####cannot be commented out to match pypsa-eur
+      p_min_pu: mean   ####can be commented out to match pypsa-eur
+      marginal_cost: mean   ####can be commented out to match pypsa-eur
       committable: any
       ramp_limit_up: max
       ramp_limit_down: max
-      efficiency: mean
+      efficiency: mean   ####can be commented out to match pypsa-eur
 
 build_shape_options:
   gadm_layer_id: 1  # GADM level area used for the gadm_shapes. Codes are country-dependent but roughly: 0: country, 1: region/county-like, 2: municipality-like
@@ -122,8 +122,8 @@ base_network:
 load_options:
   ssp: "ssp2-2.6" # shared socio-economic pathway (GDP and population growth) scenario to consider
   weather_year: 2013  # Load scenarios available with different weather year (different renewable potentials)
-  prediction_year: 2050  # Load scenarios available with different prediction year (GDP, population)          ######### a folder is created with the same information of 2030 (this change is donde to allow the prediction year to be 2020)
-  scale: 1.004  # scales all load time-series, i.e. 2 = doubles load         ######## value changed to adapt the total energy demand to the Bolivian demand in 2020
+  prediction_year: 2030  # Load scenarios available with different prediction year (GDP, population)          ######### a folder is created with the same information of 2030 (this change is donde to allow the prediction year to be 2020)
+  scale: 0.813 #1.004 for 2050  # scales all load time-series, i.e. 2 = doubles load         ######## value changed to adapt the total energy demand to the Bolivian demand in 2020
 
 electricity:
   voltages: [220., 300., 380.]
