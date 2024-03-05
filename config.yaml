@@ -17,7 +17,7 @@ run:
 scenario:
   simpl: ['']
   ll: ['copt']
-  clusters: [4m]
+  clusters: [5]
   opts: [Co2L-1H]
 
 countries: ["BO"]
@@ -122,8 +122,8 @@ base_network:
 load_options:
   ssp: "ssp2-2.6" # shared socio-economic pathway (GDP and population growth) scenario to consider
   weather_year: 2013  # Load scenarios available with different weather year (different renewable potentials)
-  prediction_year: 2030  # Load scenarios available with different prediction year (GDP, population)          ######### a folder is created with the same information of 2030 (this change is donde to allow the prediction year to be 2020)
-  scale: 0.813 #1.004 for 2050  # scales all load time-series, i.e. 2 = doubles load         ######## value changed to adapt the total energy demand to the Bolivian demand in 2020
+  prediction_year: "newprofile2020" # Load scenarios available with different prediction year (GDP, population) (name should be 2030 2050 or 2100 acoording the SSP2.6 scenartios)      ######### a folder is created with the same format but with curated demand curve for 2021 for Bolivia (this change is donde to allow the prediction year to have real shape)
+  scale: 9.42 ###### reference value for newprofile2020 is 9.968 Twh/year ##### 0.813 is the to adapt the total energy demand to the Bolivian demand in 2020 using default 2030 data ###### expected demand in 2050 is 93.941 TWh according to paper ECOS2024 partA          
 
 electricity:
   voltages: [220., 300., 380.]
@@ -143,9 +143,9 @@ electricity:
     H2: 168
 
   extendable_carriers:
-    Generator: [solar, biomass, geothermal, onwind, hydro]               ##  offwind-ac & offwind-dc are removed  ## CCGT, OCGT are removed for scenario analysis
+    Generator: [solar, biomass, geothermal, onwind] ## hydro considers only planned powerplants              ##  offwind-ac & offwind-dc are removed  ## CCGT, OCGT are removed for scenario analysis
     StorageUnit: []  # battery, H2
-    Store: [battery, H2]
+    Store: [battery, H2]  
     Link: []  # H2 pipeline
 
   powerplants_filter: Country not in ['Bolivia'] # (DateOut >= 2022 or DateOut != DateOut) # 
