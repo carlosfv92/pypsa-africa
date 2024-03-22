@@ -118,3 +118,10 @@
 118,NWT1,Wind,Onshore,PP,BO,45,1,2024,2024,2054,-17.52,-63.13,0,0,0,0,New wind turbine planned,New wind turbine planned
 119,NGT1,Geothermal,Geothermal,PP,BO,5,1,2022,2022,2072,-22.11,-67.45,0,0,0,0,New geothermal plant planned,New geothermal plant planned
 120,NGT2,Geothermal,Geothermal,PP,BO,50,1,2025,2025,2075,-22.11,-67.45,0,0,0,0,New geothermal plant planned,New geothermal plant planned
+121,CAR,hydro,Reservoir,PP,BO,346.00,,2035,2035,2135,-21.14,-65.12,,0,0,0,,Carrizal
+122,ROS,hydro,Reservoir,PP,BO,400.00,,2035,2035,2135,-18.54,-63.24,,0,0,0,,Rositas
+123,ICL,hydro,Run-Of-River,PP,BO,102.00,,2035,2035,2135,-19.36,-64.79,,0,0,0,,Icla
+124,MAR,hydro,Run-Of-River,PP,BO,150.00,,2035,2035,2135,-21.54,-64.73,,0,0,0,,Margaritas
+125,CHE,hydro,Reservoir,PP,BO,1680.00,,2035,2035,2135,-14.54,-67.50,,0,0,0,,El Chepete - Bala
+126,CAC,hydro,Reservoir,PP,BO,990.00,,2035,2035,2135,-10.53,-65.59,,0,0,0,,Cachuela Esperanza
+127,CRG,hydro,Reservoir,PP,BO,2112.00,,2035,2035,2135,-17.81,-63.02,,0,0,0,,Complejo Rio Grande (without juntas & rositas)
