@@ -349,10 +349,17 @@ def add_battery_constraints(n):
 ###### extra constraint where p_nom_max is define for geothermal given it has a maximum potential defined exogenously 
 def geothermal_capacity_constraint(n):
     geothermal_i = n.generators.query("carrier == 'geothermal'").index
-    p_nom_current = get_var(n, "Generator", "p_nom")[geothermal_i]
-    lhs = linexpr((1, p_nom_current)).sum()
-    rhs = n.generators.loc[geothermal_i,'p_nom'].sum() + 500
+    p_nom_current_geo = get_var(n, "Generator", "p_nom")[geothermal_i]
+    lhs = linexpr((1, p_nom_current_geo)).sum()
+    rhs = n.generators.loc[geothermal_i,'p_nom'].sum() + 880
     define_constraints(n, lhs, '<=', rhs, 'Generator', 'new_geothermal_capacity')
+
+def biomass_capacity_constraint(n):
+    biomass_i = n.generators.query("carrier == 'biomass'").index
+    p_nom_current_bio = get_var(n, "Generator", "p_nom")[biomass_i]
+    lhs = linexpr((1, p_nom_current_bio)).sum()
+    rhs = n.generators.loc[biomass_i,'p_nom'].sum() + 847*2
+    define_constraints(n, lhs, '<=', rhs, 'Generator', 'new_biomass_capacity')
 
 ###### extra constraint where p_nom_opt is set to be at least p_nom to avoid negative expansion 
 ####
@@ -386,6 +393,9 @@ def extra_functionality(n, snapshots):
     geothermal_i = n.generators.query("carrier == 'geothermal'").index
     if not geothermal_i.empty:
         geothermal_capacity_constraint(n)
+    biomass_i = n.generators.query("carrier == 'biomass'").index
+    if not biomass_i.empty:
+        biomass_capacity_constraint(n)
 
 
 def solve_network(n, config, opts="", **kwargs):
